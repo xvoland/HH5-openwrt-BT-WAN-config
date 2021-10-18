@@ -1,0 +1,61 @@
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fdba:1f08:5996::/48'
+
+config dsl 'dsl'
+	option annex 'a'
+	option tone 'av'
+	option ds_snr_offset '0'
+	option xfer_mode 'atm'
+	option line_mode 'adsl'
+
+config interface 'lan'
+	option type 'bridge'
+	option ifname 'eth0.1'
+	option proto 'static'
+	option ipaddr '192.168.1.1'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+	option stp '1'
+	option igmp_snooping '1'
+
+config device 'lan_dev'
+	option name 'eth0.1'
+	option macaddr '84:xx:xx:xx:xx:xx'
+
+config interface 'wan'
+	option proto 'dhcp'
+	option type 'bridge'
+	option ifname 'eth0'
+
+config device 'wan_dev'
+	option name 'dsl0'
+	option macaddr '84:xx:xx:xx:xx:xx'
+
+config interface 'wan6'
+	option ifname '@wan'
+	option proto 'dhcpv6'
+
+config switch
+	option name 'switch0'
+	option reset '1'
+	option enable_vlan '1'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '1'
+	option ports '6t 4 2 0 1'
+	option vid '1'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '2'
+	option ports '6 5'
+	option vid '2'
+
